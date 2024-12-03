@@ -33,13 +33,13 @@ struct SignUpView: View {
                 .font(.pretendard(.medium, size: 14))
                 .foregroundColor(viewModel.isPasswordMatching ? Color.customBlack : Color.deepRed)
                 .padding(.horizontal, 33)
-                .padding(.bottom, 160)
+
             
             MainButton(text: "회원가입 완료", enable: viewModel.canSignUp) {
                 viewModel.signUp()
             }
+            .padding(.top, 156)
         }
-        .padding(.top, 16)
     }
 }
 
