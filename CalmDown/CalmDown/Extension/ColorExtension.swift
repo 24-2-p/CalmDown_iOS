@@ -16,6 +16,7 @@ extension Color {
     static let navyBlue = Color(hex: "#043E96")
     static let grayish = Color(hex: "#656B73")
     static let goldenYellow = Color(hex: "#F7B401")
+    static let lightGray = Color(hex: "#ADADAD")
 }
 
 
