@@ -11,7 +11,7 @@ struct StartView: View {
     var body: some View {
         VStack(spacing: 0) {
             Image("MainLogo")
-                .padding(.top, 90)
+                .padding(.top, 70)
             
             VStack(spacing: 0) {
                 Text("CALM")
@@ -26,6 +26,15 @@ struct StartView: View {
                 .font(.pretendard(.medium, size: 12))
                 .foregroundColor(Color.customBlack)
                 .padding(.top, 18)
+            
+            VStack(spacing: 0) {
+                Text("가천대학교 컴퓨터공학과")
+                
+                Text("팀 매칭 서비스")
+            }
+            .font(.pretendard(.medium, size: 16))
+            .foregroundColor(Color.customBlack)
+            .padding(.top, 18)
             
             Rectangle()
                 .frame(width: 271, height: 1)
