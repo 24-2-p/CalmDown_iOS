@@ -27,7 +27,7 @@ struct HomeEmptyView: View {
             
             Text("매칭된 팀이 없습니다.")
                 .font(.pretendard(.medium, size: 20))
-                .foregroundColor(Color.MediumGray)
+                .foregroundColor(Color.mediumGray)
         }
         Spacer()
     }
