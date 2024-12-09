@@ -184,19 +184,20 @@ struct HomeMatchingView: View {
                 .frame(width: 356, height: 0.3)
                 .padding(.top, 30)
                 .foregroundColor(Color.mediumGray)
-        }
-        
-        Button(action: {
-            //action
-        }) {
-            HStack {
-                Image("TalkButton")
+            Button(action: {
+                //action
+            }) {
+                HStack {
+                    Image("TalkButton")
+                }
             }
+            .padding(.top, 37)
+            .padding(.leading, 250)
+            
+            Spacer()
         }
-        .padding(.top, 37)
-        .padding(.leading, 250)
         
-        Spacer()
+        
     }
 }
 

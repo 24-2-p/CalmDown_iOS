@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         TabView {
-            MatchingView()
+            HomeMatchingView()
                 .tabItem {
                     Image("homeTabbar")
                     Text("홈")
@@ -23,7 +23,7 @@ struct ContentView: View {
                     Text("매칭")
                 }
             
-            TechSelectionView()
+            MyInfoView()
                 .tabItem {
                     Image("profileTabbar")
                     Text("내 정보")
