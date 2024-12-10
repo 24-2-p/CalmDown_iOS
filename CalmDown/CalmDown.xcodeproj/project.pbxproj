@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		9F17FF782D0873A700093906 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 9F17FF772D0873A700093906 /* Moya */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		9FF264672C9D545800A7C9E0 /* CalmDown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalmDown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F17FF782D0873A700093906 /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 			);
 			name = CalmDown;
 			packageProductDependencies = (
+				9F17FF772D0873A700093906 /* Moya */,
 			);
 			productName = CalmDown;
 			productReference = 9FF264672C9D545800A7C9E0 /* CalmDown.app */;
@@ -107,6 +113,9 @@
 			);
 			mainGroup = 9FF2645E2C9D545800A7C9E0;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				9F17FF762D0873A700093906 /* XCRemoteSwiftPackageReference "Moya" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9FF264682C9D545800A7C9E0 /* Products */;
 			projectDirPath = "";
@@ -341,6 +350,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9F17FF762D0873A700093906 /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9F17FF772D0873A700093906 /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9F17FF762D0873A700093906 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9FF2645F2C9D545800A7C9E0 /* Project object */;
 }
