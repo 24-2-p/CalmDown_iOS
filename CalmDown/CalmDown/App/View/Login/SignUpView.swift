@@ -33,12 +33,21 @@ struct SignUpView: View {
                 .font(.pretendard(.medium, size: 14))
                 .foregroundColor(viewModel.isPasswordMatching ? Color.customBlack : Color.deepRed)
                 .padding(.horizontal, 33)
-
+            
+            if let errorMessage = viewModel.errorMessage {
+                Text(errorMessage)
+                    .font(.pretendard(.medium, size: 14))
+                    .foregroundColor(Color.deepRed)
+                    .padding(.top, 10)
+            }
             
             MainButton(text: "회원가입 완료", enable: viewModel.canSignUp) {
                 viewModel.signUp()
             }
             .padding(.top, 156)
+        }
+        .alert(isPresented: $viewModel.isSuccess) {
+            Alert(title: Text("회원가입 완료"), message: Text("축하합니다! 회원가입이 성공적으로 완료되었습니다."), dismissButton: .default(Text("확인")))
         }
     }
 }
