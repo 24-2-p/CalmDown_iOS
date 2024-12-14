@@ -55,7 +55,7 @@ class SignUpViewModel: ObservableObject {
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    self?.errorMessage = "네트워크 오류: \(error.localizedDescription)"
+                    self?.errorMessage = nil
                 }
             }
         }
