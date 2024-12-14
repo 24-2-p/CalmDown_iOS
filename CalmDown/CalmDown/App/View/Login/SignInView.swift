@@ -38,17 +38,12 @@ struct SignInView: View {
             }
             
             MainButton(text: "로그인", enable: viewModel.canSignIn) {
-                viewModel.validateSignIn()
+                viewModel.signIn()
             }
             .padding(.top, 371)
         }
     }
 }
-
-#Preview {
-    SignInView()
-}
-
 
 #Preview {
     SignInView()

@@ -24,39 +24,21 @@ class SignUpViewModel: ObservableObject {
         isPasswordMatching && !user.username.isEmpty && !user.email.isEmpty
     }
     
-    func signUp() {
+    func signUp(completion: @escaping (Bool) -> Void) {
         guard canSignUp else { return }
         
         provider.request(.signUp(username: user.username, email: user.email, password: user.password)) { [weak self] result in
             switch result {
             case .success(let response):
-                do {
-                    let json = try JSONSerialization.jsonObject(with: response.data, options: [])
-                    
-                    if let dict = json as? [String: Any] {
-                        if let success = dict["success"] as? Bool, success {
-                            DispatchQueue.main.async {
-                                self?.isSuccess = true
-                            }
-                        } else {
-                            DispatchQueue.main.async {
-                                self?.errorMessage = dict["message"] as? String ?? "회원가입 실패"
-                            }
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            self?.errorMessage = "올바르지 않은 응답 형식입니다."
-                        }
-                    }
-                } catch {
-                    DispatchQueue.main.async {
-                        self?.errorMessage = "데이터 파싱 오류: \(error.localizedDescription)"
-                    }
+                if response.statusCode == 200 {
+                    completion(true) // 회원가입 성공
+                } else {
+                    self?.errorMessage = "회원가입 실패"
+                    completion(false)
                 }
             case .failure(let error):
-                DispatchQueue.main.async {
-                    self?.errorMessage = "네트워크 오류: \(error.localizedDescription)"
-                }
+                self?.errorMessage = "네트워크 오류: \(error.localizedDescription)"
+                completion(false)
             }
         }
     }

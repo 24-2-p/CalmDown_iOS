@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SignUpView: View {
     @StateObject private var viewModel = SignUpViewModel()
+    @Environment(\.presentationMode) var presentationMode // 이전 화면으로 이동하기 위한 환경 변수
     
     var body: some View {
         VStack(spacing: 0) {
@@ -42,12 +43,13 @@ struct SignUpView: View {
             }
             
             MainButton(text: "회원가입 완료", enable: viewModel.canSignUp) {
-                viewModel.signUp()
+                viewModel.signUp { success in
+                    if success {
+                        self.presentationMode.wrappedValue.dismiss() // 로그인 화면으로 이동
+                    }
+                }
             }
             .padding(.top, 156)
-        }
-        .alert(isPresented: $viewModel.isSuccess) {
-            Alert(title: Text("회원가입 완료"), message: Text("축하합니다! 회원가입이 성공적으로 완료되었습니다."), dismissButton: .default(Text("확인")))
         }
     }
 }
