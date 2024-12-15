@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct HomeMatchingView: View {
+    @StateObject private var viewModel = UserProfileViewModel()
+    
     var body: some View {
         VStack(spacing: 0) {
             HStack {
@@ -33,171 +35,72 @@ struct HomeMatchingView: View {
                 .padding(.top, 16)
                 .foregroundColor(Color.mediumGray)
             
-            HStack(alignment: .center, spacing: 10) {
-                Image("profile")
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("이상엽")
-                        .font(.pretendard(.medium, size: 16))
+            ForEach(teamMembers) { member in
+                HStack(alignment: .center, spacing: 10) {
+                    Image("profile")
                     
-                    Text("프론트엔드")
-                        .font(.pretendard(.medium, size: 8))
-                        .foregroundColor(Color.mediumBlue)
-                        .padding(4)
-                        .background(
-                            RoundedRectangle(cornerRadius: 36)
-                                .fill(Color.lightBlue)
-                        )
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(member.name)
+                            .font(.pretendard(.medium, size: 16))
+                        
+                        Text(member.position)
+                            .font(.pretendard(.medium, size: 8))
+                            .foregroundColor(Color.mediumBlue)
+                            .padding(4)
+                            .background(
+                                RoundedRectangle(cornerRadius: 36)
+                                    .fill(Color.lightBlue)
+                            )
+                    }
                     
-                }
-                
-                Spacer()
-                
-                Button(action: {
-                    //action
-                }) {
-                    HStack {
+                    Spacer()
+                    
+                    Button(action: {
+                        viewModel.fetchUserProfile(teamId: 1, userId: member.id)
+                    }) {
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(Color.mediumGray)
                     }
                 }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.top, 30)
-            .padding(.horizontal, 16)
-            
-            Rectangle()
-                .frame(width: 356, height: 0.3)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 30)
-                .foregroundColor(Color.mediumGray)
-            
-            HStack(alignment: .center, spacing: 10) {
-                Image("profile")
+                .padding(.horizontal, 16)
                 
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("강태훈")
-                        .font(.pretendard(.medium, size: 16))
-                    
-                    Text("백엔드")
-                        .font(.pretendard(.medium, size: 8))
-                        .foregroundColor(Color.mediumBlue)
-                        .padding(4)
-                        .background(
-                            RoundedRectangle(cornerRadius: 36)
-                                .fill(Color.lightBlue)
-                        )
-                    
-                }
-                
-                Spacer()
-                
-                Button(action: {
-                    //action
-                }) {
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(Color.mediumGray)
-                    }
-                }
+                Rectangle()
+                    .frame(width: 356, height: 0.3)
+                    .padding(.top, 30)
+                    .foregroundColor(Color.mediumGray)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.top, 30)
-            .padding(.horizontal, 16)
-            
-            Rectangle()
-                .frame(width: 356, height: 0.3)
-                .padding(.top, 30)
-                .foregroundColor(Color.mediumGray)
-            
-            HStack(alignment: .center, spacing: 10) {
-                Image("profile")
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("김규식")
-                        .font(.pretendard(.medium, size: 16))
-                    
-                    Text("백엔드")
-                        .font(.pretendard(.medium, size: 8))
-                        .foregroundColor(Color.mediumBlue)
-                        .padding(4)
-                        .background(
-                            RoundedRectangle(cornerRadius: 36)
-                                .fill(Color.lightBlue)
-                        )
-                    
-                }
-                
-                Spacer()
-                
-                Button(action: {
-                    //action
-                }) {
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(Color.mediumGray)
-                    }
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.top, 30)
-            .padding(.horizontal, 16)
-            
-            Rectangle()
-                .frame(width: 356, height: 0.3)
-                .padding(.top, 30)
-                .foregroundColor(Color.mediumGray)
-            
-            HStack(alignment: .center, spacing: 10) {
-                Image("profile")
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("채리원")
-                        .font(.pretendard(.medium, size: 16))
-                    
-                    Text("프론트엔드")
-                        .font(.pretendard(.medium, size: 8))
-                        .foregroundColor(Color.mediumBlue)
-                        .padding(4)
-                        .background(
-                            RoundedRectangle(cornerRadius: 36)
-                                .fill(Color.lightBlue)
-                        )
-                    
-                }
-                
-                Spacer()
-                
-                Button(action: {
-                    //action
-                }) {
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(Color.mediumGray)
-                    }
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.top, 30)
-            .padding(.horizontal, 16)
-            
-            Rectangle()
-                .frame(width: 356, height: 0.3)
-                .padding(.top, 30)
-                .foregroundColor(Color.mediumGray)
-            
-            Button(action: {
-                //action
-            }) {
-                HStack {
-                    Image("TalkButton")
-                }
-            }
-            .padding(.top, 37)
-            .padding(.leading, 250)
             
             Spacer()
         }
+        .sheet(isPresented: $viewModel.isSheetPresented) {
+            if let userProfile = viewModel.selectedUserProfile {
+                UserProfileSheet(userProfile: userProfile)
+                    .presentationDetents([.fraction(0.7)]) // 시트 높이를 70%로 제한
+            } else if viewModel.isLoading {
+                ProgressView("Loading...")
+                    .presentationDetents([.fraction(0.7)]) // 로딩 시에도 70%로 제한
+            } else if let errorMessage = viewModel.errorMessage {
+                Text("Error: \(errorMessage)")
+                    .presentationDetents([.fraction(0.7)]) // 에러 메시지 시에도 70%로 제한
+            }
+        }
     }
+    
+    // Dummy Data
+    let teamMembers = [
+        TeamMember(id: 1, name: "이상엽", position: "프론트엔드"),
+        TeamMember(id: 2, name: "강태훈", position: "백엔드"),
+        TeamMember(id: 3, name: "김규식", position: "백엔드"),
+        TeamMember(id: 4, name: "채리원", position: "프론트엔드")
+    ]
+}
+
+struct TeamMember: Identifiable {
+    let id: Int
+    let name: String
+    let position: String
 }
 
 #Preview {
