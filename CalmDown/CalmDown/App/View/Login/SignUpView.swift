@@ -64,6 +64,8 @@ struct SignUpView: View {
                 .padding()
             }
             .ignoresSafeArea(.keyboard)
+            .navigationBarBackButtonHidden(true) // Back 버튼 숨김
+
         }
     }
 }

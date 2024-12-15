@@ -12,7 +12,6 @@ struct SignInView: View {
     @State private var navigateToRoleSelection = false // 화면 전환 상태 변수
 
     var body: some View {
-        NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
                     HStack {
@@ -59,7 +58,9 @@ struct SignInView: View {
                 .padding()
             }
             .ignoresSafeArea(.keyboard)
-        }
+            .navigationBarBackButtonHidden(true) // Back 버튼 숨김
+
+        
     }
 }
 

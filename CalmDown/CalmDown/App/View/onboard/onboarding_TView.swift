@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TechSelectionView: View {
     @State private var selectedTechs: [String] = []
+    @State private var navigateToNextView: Bool = false // 다음 화면으로 이동 여부
     private var spacingOfTech = CGFloat(70)
     var body: some View {
         ZStack{
@@ -95,12 +96,20 @@ struct TechSelectionView: View {
                     
                 }
                 .scrollIndicators(.hidden)
-                MainButton(text: "다음") {}
+                NavigationLink(destination: LinkSelectionView(), isActive: $navigateToNextView) {
+                    EmptyView()
+                }
+                MainButton(text: "다음") {
+                    navigateToNextView = true // 다음 화면으로 이동
+
+                }
                     .padding(.bottom, 30)
                 //                    .padding(.top, 81)
             }
             
         }
+        .navigationBarBackButtonHidden(true) // Back 버튼 숨김
+
     }
     private func toggleRole(_ role: String) {
         if selectedTechs.contains(role) {

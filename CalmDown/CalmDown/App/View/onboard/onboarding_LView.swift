@@ -10,7 +10,9 @@ import SwiftUI
 struct LinkSelectionView: View {
     @State private var selectedRoles: [String] = []
     @StateObject private var viewModel = SignInViewModel()
-    
+    @State private var navigateToNextView: Bool = false // 다음 화면으로 이동 여부
+    @State private var logined: Bool = true
+
     var body: some View {
         VStack(spacing: 0) {
             // 로고
@@ -41,13 +43,18 @@ struct LinkSelectionView: View {
             
             Spacer()
             
+            NavigationLink(destination: ContentView(logined: logined), isActive: $navigateToNextView) {
+                EmptyView()
+            }
             // 다음 버튼
             MainButton(text: "다음") {
-                print("선택된 역할: \(selectedRoles)")
+                navigateToNextView = true // 다음 화면으로 이동
             }
             .padding(.top, 81)
             .padding(.bottom, 30)
         }
+        .navigationBarBackButtonHidden(true) // Back 버튼 숨김
+
     }
     
     private func toggleRole(_ role: String) {

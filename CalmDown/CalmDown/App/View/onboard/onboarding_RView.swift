@@ -10,8 +10,8 @@ import SwiftUI
 struct RoleSelectionView: View {
     @State private var selectedRoles: [String] = []
     @State private var navigateToNextView: Bool = false // 다음 화면으로 이동 여부
-
-
+    
+    
     var body: some View {
         VStack(spacing: 0) {
             // 로고
@@ -20,7 +20,7 @@ struct RoleSelectionView: View {
                 .frame(width: 50, height: 50)
                 .padding(.top, 33)
                 .padding(.trailing, 300)
-
+            
             Text("팀에서 어떤 역할을 맡을 건가요?")
                 .font(.pretendard(.medium, size: 24))
                 .fontWeight(.semibold)
@@ -28,55 +28,59 @@ struct RoleSelectionView: View {
                 .padding(.top, 30)
                 .padding(.bottom, 20)
                 .padding(.trailing, 40)
-
-
+            
+            
             VStack(spacing: 20) {
-                            HStack {
-                                RoleButton(title: "프론트엔드", isSelected: selectedRoles.contains("프론트엔드")) {
-                                    toggleRole("프론트엔드")
-                                }
-                                RoleButton(title: "백엔드", isSelected: selectedRoles.contains("백엔드")) {
-                                    toggleRole("백엔드")
-                                }
-                            }
-                            HStack {
-                                RoleButton(title: "AI", isSelected: selectedRoles.contains("AI")) {
-                                    toggleRole("AI")
-                                }
-                                RoleButton(title: "IoT", isSelected: selectedRoles.contains("IoT")) {
-                                    toggleRole("IoT")
-                                }
-                            }
-                        }
-                        .padding(.top, 130)
-                        .padding(.horizontal, 20)
-
-                        Spacer()
-            
-                        MainButton(text: "다음") {
-                            navigateToNextView = true // 다음 화면으로 이동
-                        }
-                        .padding(.top, 81)
-                        .padding(.bottom, 30)
-            
+                HStack {
+                    RoleButton(title: "프론트엔드", isSelected: selectedRoles.contains("프론트엔드")) {
+                        toggleRole("프론트엔드")
+                    }
+                    RoleButton(title: "백엔드", isSelected: selectedRoles.contains("백엔드")) {
+                        toggleRole("백엔드")
                     }
                 }
-
-                private func toggleRole(_ role: String) {
-                    if selectedRoles.contains(role) {
-                        selectedRoles.removeAll { $0 == role }
-                    } else {
-                        selectedRoles.append(role)
+                HStack {
+                    RoleButton(title: "AI", isSelected: selectedRoles.contains("AI")) {
+                        toggleRole("AI")
+                    }
+                    RoleButton(title: "IoT", isSelected: selectedRoles.contains("IoT")) {
+                        toggleRole("IoT")
                     }
                 }
             }
+            .padding(.top, 130)
+            .padding(.horizontal, 20)
+            
+            Spacer()
+            NavigationLink(destination: TechSelectionView(), isActive: $navigateToNextView) {
+                EmptyView()
+            }
+            MainButton(text: "다음") {
+                navigateToNextView = true // 다음 화면으로 이동
+            }
+            .padding(.top, 81)
+            .padding(.bottom, 30)
+            
+        }
+        .navigationBarBackButtonHidden(true) // Back 버튼 숨김
+
+    }
+    
+    private func toggleRole(_ role: String) {
+        if selectedRoles.contains(role) {
+            selectedRoles.removeAll { $0 == role }
+        } else {
+            selectedRoles.append(role)
+        }
+    }
+}
 
 // 역할 선택 버튼 컴포넌트
 struct RoleButton: View {
     var title: String
     var isSelected: Bool
     var action: () -> Void
-
+    
     var body: some View {
         Button(action: action) {
             Text(title)
@@ -89,7 +93,7 @@ struct RoleButton: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(isSelected ? Color.blue : Color.clear, lineWidth: 2)
-
+                    
                 )
         }
     }
