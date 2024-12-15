@@ -14,8 +14,7 @@ class CommentViewModel: ObservableObject {
 
     private let provider = MoyaProvider<CommentService>()
 
-    // 댓글 작성
-    func writeComment(teamId: Int, userId: Int, postId: Int, content: String, author: String) {
+    func writeComment(teamId: Int, userId: Int, postId: Int, content: String) {
         provider.request(.writeComment(teamId: teamId, userId: userId, postId: postId, content: content)) { [weak self] result in
             switch result {
             case .success(let response):
@@ -25,27 +24,18 @@ class CommentViewModel: ObservableObject {
                         DispatchQueue.main.async {
                             let newComment = Comment(
                                 id: decodedResponse.success.userId,
-                                author: author,
+                                author: UserSession.shared.username,
                                 text: decodedResponse.success.content,
                                 timestamp: Date()
                             )
                             self?.comments.append(newComment)
-                            self?.errorMessage = nil
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            self?.errorMessage = "댓글 작성 실패"
                         }
                     }
                 } catch {
-                    DispatchQueue.main.async {
-                        self?.errorMessage = "JSON 디코딩 실패"
-                    }
+                    print("Error decoding response: \(error)")
                 }
             case .failure(let error):
-                DispatchQueue.main.async {
-                    self?.errorMessage = "네트워크 요청 실패: \(error.localizedDescription)"
-                }
+                print("Network Error: \(error.localizedDescription)")
             }
         }
     }
@@ -57,7 +47,6 @@ class CommentViewModel: ObservableObject {
             case .success:
                 DispatchQueue.main.async {
                     self?.comments.removeAll { $0.id == commentId }
-                    self?.errorMessage = nil
                 }
             case .failure(let error):
                 DispatchQueue.main.async {

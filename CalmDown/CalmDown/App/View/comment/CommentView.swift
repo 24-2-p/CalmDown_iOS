@@ -1,38 +1,46 @@
-//
-//  CommentView.swift
-//  CalmDown
-//
-//  Created by 채리원 on 12/14/24.
-//
-
 import SwiftUI
 
 struct CommentView: View {
     @StateObject private var viewModel = CommentViewModel()
     @State private var newComment = ""
 
+    init() {
+        // 하드코딩으로 UserSession 값 설정
+        UserSession.shared.userId = 1
+        UserSession.shared.username = "홍길동"
+    }
+
     var body: some View {
         VStack(spacing: 16) {
-            // 상단 제목
             Text("Calm Match")
                 .font(.pretendard(.medium, size: 24))
                 .foregroundColor(Color.deepBlue)
                 .padding(.top, 16)
 
-            // 댓글 리스트
-            if viewModel.comments.isEmpty {
-                emptyStateView
-            } else {
-                commentsList
-            }
+            commentListView
 
-            // 댓글 입력 필드
             commentInputField
         }
         .padding(.horizontal, 16)
     }
 
-    // 빈 상태 뷰
+    private var commentListView: some View {
+        Group {
+            if viewModel.comments.isEmpty {
+                emptyStateView
+            } else {
+                List {
+                    ForEach(viewModel.comments) { comment in
+                        CommentRow(comment: comment) {
+                            viewModel.deleteComment(teamId: 1, postId: 1, commentId: comment.id)
+                        }
+                    }
+                }
+                .listStyle(PlainListStyle())
+            }
+        }
+    }
+
     private var emptyStateView: some View {
         VStack(spacing: 8) {
             Spacer()
@@ -46,19 +54,6 @@ struct CommentView: View {
         }
     }
 
-    // 댓글 리스트 뷰
-    private var commentsList: some View {
-        List {
-            ForEach(viewModel.comments) { comment in
-                CommentRow(comment: comment) {
-                    viewModel.deleteComment(teamId: 1, postId: 1, commentId: comment.id)
-                }
-            }
-        }
-        .listStyle(PlainListStyle())
-    }
-
-    // 댓글 입력 필드 뷰
     private var commentInputField: some View {
         HStack {
             TextField("댓글을 입력하세요.", text: $newComment)
@@ -66,13 +61,14 @@ struct CommentView: View {
                 .font(.pretendard(.medium, size: 12))
 
             Button(action: {
+                // 하드코딩으로 값 넣어둠
+                let userId = UserSession.shared.userId ?? 1
                 if !newComment.isEmpty {
                     viewModel.writeComment(
                         teamId: 1,
-                        userId: 1,
+                        userId: userId,
                         postId: 1,
-                        content: newComment,
-                        author: "채리원"
+                        content: newComment
                     )
                     newComment = ""
                 }
@@ -101,7 +97,7 @@ struct CommentRow: View {
                     .font(.headline)
                 Text(comment.text)
                     .font(.subheadline)
-                Text(comment.timestamp, style: .date)
+                Text("\(comment.timestamp, style: .date)")
                     .font(.caption)
                     .foregroundColor(Color.lightGray)
             }
@@ -110,7 +106,7 @@ struct CommentRow: View {
 
             Button(action: onDelete) {
                 Image(systemName: "trash")
-                    .foregroundColor(Color.lightGray)
+                    .foregroundColor(Color.red)
             }
         }
         .padding(.vertical, 8)
