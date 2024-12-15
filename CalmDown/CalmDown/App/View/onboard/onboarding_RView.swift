@@ -9,27 +9,25 @@ import SwiftUI
 
 struct RoleSelectionView: View {
     @State private var selectedRoles: [String] = []
+    @State private var navigateToNextView: Bool = false // 다음 화면으로 이동 여부
+
 
     var body: some View {
         VStack(spacing: 0) {
             // 로고
-            Image("MainLogo") // 로고 대신 실제 로고 이미지 추가
+            Image("MainLogo")
                 .resizable()
                 .frame(width: 50, height: 50)
                 .padding(.top, 33)
-                .padding(.trailing, 320)
+                .padding(.trailing, 300)
 
-
-
-
-            // 제목 텍스트
             Text("팀에서 어떤 역할을 맡을 건가요?")
                 .font(.pretendard(.medium, size: 24))
                 .fontWeight(.semibold)
                 .foregroundColor(Color.deepBlue)
                 .padding(.top, 30)
                 .padding(.bottom, 20)
-                .padding(.trailing, 60)
+                .padding(.trailing, 40)
 
 
             VStack(spacing: 20) {
@@ -54,13 +52,13 @@ struct RoleSelectionView: View {
                         .padding(.horizontal, 20)
 
                         Spacer()
-
-                        // 다음 버튼
+            
                         MainButton(text: "다음") {
-                            print("선택된 역할: \(selectedRoles)")
+                            navigateToNextView = true // 다음 화면으로 이동
                         }
                         .padding(.top, 81)
                         .padding(.bottom, 30)
+            
                     }
                 }
 
@@ -91,6 +89,7 @@ struct RoleButton: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(isSelected ? Color.blue : Color.clear, lineWidth: 2)
+
                 )
         }
     }

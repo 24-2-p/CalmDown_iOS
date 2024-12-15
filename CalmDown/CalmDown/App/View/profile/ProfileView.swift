@@ -13,11 +13,13 @@ struct MyInfoView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
+            VStack(spacing: 20) {
                 HStack {
+                    Spacer()
                     Text("내 정보")
-                        .font(.system(size: 24, weight: .bold))
+                        .font(.pretendard(.medium, size: 24))
                         .foregroundColor(Color.deepBlue)
+                        .padding(.trailing, -40)
                     Spacer()
                     Image(systemName: "person.circle")
                         .resizable()
@@ -35,14 +37,14 @@ struct MyInfoView: View {
                     SectionHeader(title: "내 역할", action: {
                         print("역할 수정 버튼 클릭")
                     })
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.gray.opacity(0.1))
-                        .frame(height: 50)
+                    RoundedRectangle(cornerRadius: 17)
+                        .fill(Color.lightBlue.opacity(0.3))
+                        .frame(width: 285, height: 57)
                         .overlay(
                             Text(data.role)
                                 .foregroundColor(.black)
-                                .font(.system(size: 16))
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(.pretendard(.regular, size: 18))
+                                .frame(maxWidth: .infinity)
                                 .padding(.horizontal)
                         )
                         .padding(.horizontal)

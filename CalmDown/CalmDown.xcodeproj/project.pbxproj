@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4FBA83382D0EA7E800F29EE8 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 4FBA83372D0EA7E800F29EE8 /* CombineMoya */; };
+		4FBA833A2D0EA81200F29EE8 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 4FBA83392D0EA81200F29EE8 /* CombineMoya */; };
 		9F17FF782D0873A700093906 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 9F17FF772D0873A700093906 /* Moya */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +42,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FBA83382D0EA7E800F29EE8 /* CombineMoya in Frameworks */,
 				9F17FF782D0873A700093906 /* Moya in Frameworks */,
+				4FBA833A2D0EA81200F29EE8 /* CombineMoya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +88,8 @@
 			name = CalmDown;
 			packageProductDependencies = (
 				9F17FF772D0873A700093906 /* Moya */,
+				4FBA83372D0EA7E800F29EE8 /* CombineMoya */,
+				4FBA83392D0EA81200F29EE8 /* CombineMoya */,
 			);
 			productName = CalmDown;
 			productReference = 9FF264672C9D545800A7C9E0 /* CalmDown.app */;
@@ -363,6 +369,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4FBA83372D0EA7E800F29EE8 /* CombineMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CombineMoya;
+		};
+		4FBA83392D0EA81200F29EE8 /* CombineMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CombineMoya;
+		};
 		9F17FF772D0873A700093906 /* Moya */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9F17FF762D0873A700093906 /* XCRemoteSwiftPackageReference "Moya" */;
