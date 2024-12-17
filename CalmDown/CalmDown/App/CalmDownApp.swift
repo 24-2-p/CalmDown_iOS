@@ -11,7 +11,7 @@ import SwiftUI
 struct CalmDownApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(logined: false)
         }
     }
 }
